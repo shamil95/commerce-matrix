@@ -1,6 +1,6 @@
 const initialState = {
     isUserAuth: false,
-    userData: null,
+    userData: {},
 };
 
 const user = (state = initialState, action) => {
