@@ -1,0 +1,9 @@
+@import '../../responsive';
+
+.main {
+  display: flex;
+
+  @include md {
+    display: none;
+  }
+}
