@@ -1,0 +1,37 @@
+@import "../../responsive";
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+
+
+  @include md {
+    flex-direction: row;
+  }
+
+}
+
+
+.route {
+  margin: 0 20px;
+}
+
+.routes {
+  @extend .container;
+  justify-content: space-between;
+}
+
+
+.rightItems {
+  display: flex;
+  justify-content: flex-end;
+  width: 50%;
+  align-items: center;
+}
+
+.logout {
+  margin-left: 10px;
+}

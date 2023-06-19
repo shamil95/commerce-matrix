@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  background-color: #363131;
+  color: red;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 1;
+}
