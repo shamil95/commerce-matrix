@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {Link, Outlet} from "react-router-dom";
 import {authUser} from "../../redux/actions/user";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import styles from './Layout.module.scss'
 import {LogoutOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import Home from "../Home/Home";
 
 const Layout = () => {
     const dispatch = useDispatch();
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
     const [goster, setGoster] = useState(true);
+    const {basketProducts} = useSelector(state => state.products);
 
     const onLogoutClick = () => {
         dispatch(authUser(false));
@@ -36,8 +38,6 @@ const Layout = () => {
         })
     }, [screenSize])
 
-    console.log(goster)
-
 
     return (
         <>
@@ -51,13 +51,14 @@ const Layout = () => {
                             <div className={styles.route}>
                                 <Link to="/products">Products</Link>
                             </div>
-                        </div> :
-                        <BurgerMenu/>
+                        </div> : null
+                        // <BurgerMenu/>
                     }
                     <div className={styles.rightItems}>
                         <Link to="/basket">
                             <ShoppingCartOutlined />
                         </Link>
+                        <div>{basketProducts.length}</div>
                         <LogoutOutlined onClick={onLogoutClick} className={styles.logout}/>
                     </div>
                 </div>
