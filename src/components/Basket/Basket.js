@@ -10,6 +10,15 @@ const Basket = () => {
         dispatch(changeBasketData(prd))
     }
 
+    const summary = useMemo(() => {
+        let total = 0;
+
+        for (let i = 0; i < basketProducts.length; i++) {
+            total = total + Number(basketProducts[i].price)
+        }
+
+        return total;
+    }, [basketProducts]);
 
 
     return (
@@ -25,6 +34,7 @@ const Basket = () => {
                     </div>
                 ))
             }
+            <div>Total: {summary.toFixed(2)}</div>
         </div>
     );
 };

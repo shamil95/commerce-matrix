@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {changeCategory, changeSearchValue, getCategories} from "../../../redux/actions/products";
 
@@ -6,6 +6,8 @@ import {changeCategory, changeSearchValue, getCategories} from "../../../redux/a
 const Filters = () => {
     const dispatch = useDispatch();
     const {categories, currentCategory} = useSelector(state => state.products);
+
+    const [placeholder, setPlaceholder] = useState('')
 
     useEffect(() => {
         dispatch(getCategories())
@@ -19,7 +21,6 @@ const Filters = () => {
     const onChangeSearch = (e) => {
         const {value} = e.target;
         dispatch(changeSearchValue(value))
-
     }
 
     return (
@@ -29,7 +30,7 @@ const Filters = () => {
                     categories.map(el => <option key={el.value} value={el.value}>{el.name}</option>)
                 }
             </select>
-            <input type="text" placeholder={'search'} onChange={onChangeSearch}/>
+            <input type="text" placeholder={placeholder} onChange={onChangeSearch}/>
         </div>
     );
 };

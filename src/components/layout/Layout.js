@@ -7,11 +7,24 @@ import {LogoutOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Home from "../Home/Home";
 import { useTranslation } from "react-i18next";
+import i18n from "i18next";
+
+const languageOptions = [
+    {
+        value: 'en',
+        label: 'English'
+    },
+    {
+        value: 'az',
+        label: 'Azerbaijani'
+    },
+];
 
 const Layout = () => {
     const dispatch = useDispatch();
     const [screenSize, setScreenSize] = useState(getCurrentDimension());
     const [goster, setGoster] = useState(true);
+    const [currentLang, setCurrentLang] = useState('en');
     const {basketProducts} = useSelector(state => state.products);
 
     const onLogoutClick = () => {
@@ -40,6 +53,20 @@ const Layout = () => {
         })
     }, [screenSize])
 
+    const onLanguageChange = (e) => {
+        const {value} = e.target;
+        setCurrentLang(value);
+
+        i18n.changeLanguage(value);
+    }
+
+    useEffect(() => {
+        const userLang = localStorage.getItem('i18nextLng');
+
+        if (userLang) {
+            setCurrentLang(userLang)
+        }
+    }, [])
 
     return (
         <>
@@ -57,6 +84,11 @@ const Layout = () => {
                         // <BurgerMenu/>
                     }
                     <div className={styles.rightItems}>
+                        <select onChange={onLanguageChange} value={currentLang}>
+                            {
+                                languageOptions.map((language) => <option key={language.value} value={language.value}>{language.label}</option>)
+                            }
+                        </select>
                         <Link to="/basket">
                             <ShoppingCartOutlined />
                         </Link>
