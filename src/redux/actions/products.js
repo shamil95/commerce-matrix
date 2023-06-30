@@ -75,3 +75,36 @@ export const changeBasketData = (payload) => {
     }
 }
 
+export const setProductRating = (params) => async (dispatch, getState) => {
+    const reduxStore = getState();
+    const prd = reduxStore.products.products;
+    const response = await axios.put(`https://fakestoreapi.com/products/${params.id}`, params);
+
+    if (response) {
+        const newProducts = prd.map(el => {
+            if (el.id === params.id) {
+                return {
+                    ...params
+                }
+            }
+
+            return el
+
+        })
+        dispatch(setProducts(newProducts));
+    }
+
+}
+
+
+export const buyProduct = (params) => (dispatch, getState) => {
+    const store = getState();
+    const {products} = store.products
+    const response = 'https://www.azericard.com/';
+
+    if (response) {
+        const newData = products.filter(el => el.id !== params.id);
+        dispatch(setProducts(newData));
+    }
+
+}
