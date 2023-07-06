@@ -26,6 +26,7 @@ const Layout = () => {
     const [goster, setGoster] = useState(true);
     const [currentLang, setCurrentLang] = useState('en');
     const {basketProducts} = useSelector(state => state.products);
+    const [isDark, setIsDark] = useState(false)
 
     const onLogoutClick = () => {
         dispatch(authUser(false));
@@ -66,7 +67,30 @@ const Layout = () => {
         if (userLang) {
             setCurrentLang(userLang)
         }
+    }, []);
+
+    const handleChangeInput = (e) => {
+        const isChecked = e.target.checked;
+        localStorage.setItem('theme', isChecked)
+        setIsDark(isChecked);
+    }
+
+    useEffect(() => {
+
+        const theme = localStorage.getItem('theme');
+        setIsDark(theme);
     }, [])
+
+
+    useEffect(() => {
+        if (isDark) {
+            document.body.classList.add('dark');
+            document.body.classList.remove('light');
+        } else {
+            document.body.classList.remove('dark');
+            document.body.classList.add('light');
+        }
+    }, [isDark]);
 
     return (
         <>
@@ -84,6 +108,10 @@ const Layout = () => {
                         // <BurgerMenu/>
                     }
                     <div className={styles.rightItems}>
+                        <label className={styles.switch}>
+                            <input type="checkbox"  onChange={handleChangeInput} checked={isDark}/>
+                            <div className={styles.slider}></div>
+                        </label>
                         <select onChange={onLanguageChange} value={currentLang}>
                             {
                                 languageOptions.map((language) => <option key={language.value} value={language.value}>{language.label}</option>)

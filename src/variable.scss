@@ -12,3 +12,16 @@ $breakpoints: (
     breakpoints_#{unquote($key)}: $value;
   }
 }
+
+
+.dark {
+  --bg-color: #252222;
+  --text-color: #fff;
+  --bg-color-rating: #fff
+}
+
+.light {
+  --bg-color: #ccafaf;
+  --text-color: #2c1f1f;
+  --bg-color-rating: #2a2727
+}
