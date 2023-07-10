@@ -3,6 +3,7 @@ import Filters from "./Filters/Filters";
 import {useDispatch, useSelector} from "react-redux";
 import {buyProduct, getProductsByCategory, setBasket, setProducts} from "../../redux/actions/products";
 import Ratings from "../Ratings/Ratings";
+import styles from './Products.module.scss'
 
 const Products = () => {
     const dispatch = useDispatch();
@@ -36,12 +37,12 @@ const Products = () => {
     return (
         <div>
             <Filters/>
-            <div>
+            <div className={styles.container}>
                 {
                     searchedProducts.map(product => (
-                        <div key={product.id} onClick={() => onProductClick(product)}>
-                            <div onClick={() => onBuyProduct(product)}>{product.title}</div>
-                            <img src={product.image} alt="" style={{width: '150px'}}/>
+                        <div key={product.id} onClick={() => onProductClick(product)} className={styles.card}>
+                            <div onClick={() => onBuyProduct(product)} className={styles.title}>{product.title}</div>
+                            <img src={product.image} alt="" className={styles.image}/>
                             <div>{product.category}</div>
                             <div>{product.price}</div>
                             <Ratings product={product}/>

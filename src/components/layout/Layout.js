@@ -22,7 +22,7 @@ const languageOptions = [
 
 const Layout = () => {
     const dispatch = useDispatch();
-    const [screenSize, setScreenSize] = useState(getCurrentDimension());
+    const [screenSize, setScreenSize] = useState(window.innerWidth);
     const [goster, setGoster] = useState(true);
     const [currentLang, setCurrentLang] = useState('en');
     const {basketProducts} = useSelector(state => state.products);
@@ -33,14 +33,9 @@ const Layout = () => {
         localStorage.removeItem("token");
     }
 
-    function getCurrentDimension(){
-        return window.innerWidth
-
-    }
-
     useEffect(() => {
         const updateDimension = () => {
-            setScreenSize(getCurrentDimension())
+            setScreenSize(window.innerWidth)
         }
         window.addEventListener('resize', updateDimension);
 
@@ -104,8 +99,7 @@ const Layout = () => {
                             <div className={styles.route}>
                                 <Link to="/products">Products</Link>
                             </div>
-                        </div> : null
-                        // <BurgerMenu/>
+                        </div> : <BurgerMenu/>
                     }
                     <div className={styles.rightItems}>
                         <label className={styles.switch}>

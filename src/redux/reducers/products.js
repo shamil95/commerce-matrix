@@ -5,6 +5,7 @@ import {
     SET_CURRENT_CATEGORY,
     SET_SEARCH_VALUE
 } from "../types";
+import {auth} from "../../utils/userAuth";
 
 const initialState = {
     categories: [],
